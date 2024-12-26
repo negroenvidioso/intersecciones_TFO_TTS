@@ -1,3 +1,17 @@
+###################################################################################
+#                                                                                 #
+#                         TFO_TTS_Interaction_Analyzer                            #
+#                                                                                 #
+# Este script analiza interacciones entre TFO (Triplex Forming Oligonucleotides)  #
+# y TTS (Triplex Target Sites) a partir de un archivo de datos, y genera un       #
+# gráfico de dispersión para visualizar estas interacciones.                      #
+#                                                                                 #
+# Autor: Allan Javier Peñaloza Otárola                                            #
+# Contacto: allan.penaloza@ug.uchile.cl                                           #
+# Fecha: 09/06/2024                                                               #
+#                                                                                 #
+###################################################################################
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
