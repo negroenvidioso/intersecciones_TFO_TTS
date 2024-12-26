@@ -1,58 +1,47 @@
-# Filtrar GTF para Coordenadas de Genes
+# Análisis de Interacciones TFO y TTS
 
-Este script en Python filtra un archivo GTF para obtener las coordenadas de genes específicos y formatear esta información para su visualización en el genome browser de la UCSC.
+Este proyecto utiliza Python para analizar y visualizar interacciones entre TFO (Triplex Forming Oligonucleotides) y TTS (Triplex Target Sites) a partir de un archivo de datos.
 
 ## Requisitos
 
 - Python 3.x
-- Módulos: `argparse`, `multiprocessing`
+- pandas
+- matplotlib
+- seaborn
+
+Puedes instalar las bibliotecas necesarias utilizando pip:
+
+```bash
+pip install pandas matplotlib seaborn
+```
 
 ## Uso
 
-### Argumentos
+1. **Cargar el archivo de datos**: El archivo `triplex_RN7_noncoding_pretty.out` debe estar en el mismo directorio que el script. Este archivo debe estar separado por tabulaciones (`\t`).
 
-- `-q`, `--gtf`: Archivo GTF de entrada (requerido).
-- `-i`, `--input`: Archivo de texto con la lista de genes a buscar (requerido).
-- `-c`, `--cores`: Número de núcleos a utilizar (opcional, por defecto es 1).
+2. **Filtrar los datos**: El script filtra las interacciones con una puntuación (`Score`) mayor o igual a 30 y una tasa de error (`Error-rate`) menor a 0.05.
 
-### Ejemplo de Uso
+3. **Generar el gráfico de dispersión**: El gráfico muestra las interacciones entre TFO y TTS, con:
+   - `TFO start` en el eje x.
+   - `TTS start` en el eje y.
+   - `Score` como color (`hue`).
+   - `Guanine-rate` como tamaño (`size`).
+   - Paleta de colores `viridis`.
+
+4. **Guardar el gráfico**: El gráfico se guarda como `interacciones_TFO_TSS.png` en el directorio actual.
+
+## Ejecución
+
+Para ejecutar el script, simplemente corre el siguiente comando en tu terminal:
 
 ```bash
-python filtrar_gtf.py -q archivo.gtf -i genes.txt -c 4
+python nombre_del_script.py
 ```
 
-## Descripción del Código
+## Salida
 
-### Funciones
+El script generará un archivo de imagen `interacciones_TFO_TSS.png` en el directorio actual y mostrará un mensaje confirmando que la figura se ha guardado correctamente.
 
-- `parse_gtf(gtf_file, genes_to_search)`: Lee un archivo GTF y busca genes específicos. Si encuentra un gen de interés, extrae y formatea la información relevante (ID del transcripto, cromosoma, inicio y fin) y la guarda en una lista.
-- `read_genes_list(genes_file)`: Lee un archivo de texto que contiene una lista de genes y devuelve una lista de genes.
+## Contacto
 
-### Función Principal `main()`
-
-1. Configura el analizador de argumentos para recibir el archivo GTF, el archivo de genes y el número de núcleos a utilizar.
-2. Lee la lista de genes a buscar.
-3. Utiliza un pool de procesos para ejecutar `parse_gtf` en paralelo.
-4. Imprime los resultados obtenidos.
-
-## Ejemplo de Archivos
-
-### genes.txt
-
-```
-BRCA1
-TP53
-EGFR
-```
-
-### Salida Esperada
-
-```
-ENST00000357654    chr17:43044295-43125482
-ENST00000269305    chr17:43124095-43125482
-ENST00000380152    chr7:55086714-55279321
-```
-
-## Contribuciones
-
-Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request para discutir cualquier cambio.
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme a través de allan.penaloza@ug.uchile.cl
