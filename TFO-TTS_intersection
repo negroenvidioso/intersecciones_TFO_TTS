@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Cargar el archivo
+df = pd.read_csv('triplex_RN7_noncoding_pretty.out', sep='\\t')
+
+# Filtrar por puntuación y tasa de error
+filtered_df = df[(df['Score'] >= 30) & (df['Error-rate'] < 0.05)]
+
+# Crear el gráfico de dispersión
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=filtered_df, x='TFO start', y='TTS start', hue='Score', size='Guanine-rate', palette='viridis', sizes=(20, 200))
+plt.title('Interacciones TFO y TTS')
+plt.xlabel('Inicio del TFO')
+plt.ylabel('Inicio del TTS')
+
+# Eliminar "Score" de la leyenda y colocar la leyenda a un costado
+plt.legend(title='Guanine-rate', loc='center left', bbox_to_anchor=(1, 0.5))
+
+# Guardar la figura en el directorio
+plt.savefig('interacciones_TFO_TSS.png')
+plt.close()
+
+print("La figura se ha guardado como 'interacciones_TFO_TSS.png' en el directorio actual.")
